@@ -14,7 +14,15 @@ vim.api.nvim_create_autocmd("TermOpen", {
 		end
 	end,
 })
-
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "snacks_picker_list",
+  callback = function()
+    vim.wo.winbar = ""
+    vim.wo.statusline = " "
+    vim.wo.number = false
+    vim.wo.relativenumber = false
+  end,
+})
 local progress = vim.defaulttable()
 vim.api.nvim_create_autocmd("LspProgress", {
 	---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
@@ -41,14 +49,13 @@ vim.api.nvim_create_autocmd("LspProgress", {
 				break
 			end
 		end
-
 		local msg = {} ---@type string[]
 		progress[client.id] = vim.tbl_filter(function(v)
 			return table.insert(msg, v.msg) or not v.done
 		end, p)
 
-		-- local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
-		local spinner = { "◜", "◝", "◞", "◟" }
+		local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+		-- local spinner = { "◜", "◝", "◞", "◟" }
 
 		vim.notify(table.concat(msg, "\n"), vim.log.levels.INFO, {
 			id = "lsp_progress",

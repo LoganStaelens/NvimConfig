@@ -20,9 +20,9 @@ vim.g.maplocalleader = "\\"
 -- Setup lazy.nvim
 require("lazy").setup({
 	dev = {
-        path = "~/Projects",
-    },
-    spec = {
+		path = "~/Projects",
+	},
+	spec = {
 		-- import your plugins
 		{ import = "plugins" },
 	},
@@ -30,6 +30,16 @@ require("lazy").setup({
 	checker = { enabled = true },
 })
 
-require("config.setup")
-require("config.keymaps")
-require("config.autocommands")
+local function safe_require(module)
+  local ok, result = pcall(require, module)
+  if not ok then
+    vim.notify(debug.traceback(result, 2), vim.log.levels.ERROR)
+    return nil
+  end
+  return result
+end
+
+safe_require("lsp.init")
+safe_require("config.setup")
+safe_require("config.keymaps")
+safe_require("config.autocommands")

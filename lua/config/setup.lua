@@ -33,7 +33,6 @@ vim.o.confirm = true
 vim.o.showmode = false
 vim.o.laststatus = 3
 
-vim.lsp.set_log_level(vim.log.levels.DEBUG)
 vim.lsp.log.set_format_func(vim.inspect)
 vim.diagnostic.config({
 	virtual_text = {
@@ -121,3 +120,9 @@ end
 -- Debugger
 vim.cmd("hi DapBreakpointColor guifg=#fa4848")
 vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DapBreakpointColor", linehl = "", numhl = "" })
+
+vim.filetype.add({
+    extension = {
+        atom = "atom",
+    }
+})

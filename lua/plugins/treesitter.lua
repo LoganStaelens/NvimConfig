@@ -8,6 +8,7 @@ return {
 			highlight = { enable = true },
 			ensure_installed = {
 				"lua",
+                "rust",
 				"javascript",
 				"python",
 				"bash",

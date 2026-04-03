@@ -22,7 +22,7 @@ end
 
 function find_files(force_smart)
 	local exclude_pattern = force_smart and {} or { "*.po", "*.pot" }
-	Snacks.picker.files({ focus = "input", exclude = exclude_pattern })
+	Snacks.picker.smart({ focus = "input", exclude = exclude_pattern })
 end
 
 -- files
@@ -38,6 +38,11 @@ end, { desc = "Grep" })
 
 map("n", "<leader>fb", function()
 	Snacks.picker.buffers()
+end, { desc = "Find Buffers" })
+
+
+map("n", "<leader>fn", function()
+	Snacks.notifier.show_history()
 end, { desc = "Find Buffers" })
 
 -- Git
@@ -111,12 +116,15 @@ map("n", "<leader>tcf", "zM", { desc = "Fold All" })
 --debugger
 map("n", "<leader>db", "<cmd> DapToggleBreakpoint <cr>", { desc = "Add breakpoint at line" })
 map("n", "<leader>dr", "<cmd> DapContinue <cr>", { desc = "Start or Continue the debugger" })
-map("n", "<leader>dc", "<cmd> DapContinue <cr>", { desc = "Debugger Continue" })
-map("n", "<F6>", "<cmd> DapStepOver <cr>", { desc = "Debugger Step Over" })
-map("n", "<leader>di", "<cmd> DapStepInto <cr>", { desc = "Debugger Step Into" })
-map("n", "<F5>", "<cmd> DapStepInto <cr>", { desc = "Debugger Step Into" })
-map("n", "<leader>do", "<cmd> DapStepOut <cr>", { desc = "Debugger Step Out" })
-map("n", "<F7>", "<cmd> DapStepOut <cr>", { desc = "Debugger Step Out" })
+map("n", "<leader>dd", function()
+	require("dap-view").toggle()
+end, { desc = "Start or Continue the debugger" })
+-- map("n", "<leader>dc", "<cmd> DapStepOver <cr>", { desc = "Debugger Continue" })
+-- map("n", "<F6>", "<cmd> DapStepOver <cr>", { desc = "Debugger Step Over" })
+-- map("n", "<leader>di", "<cmd> DapStepInto <cr>", { desc = "Debugger Step Into" })
+-- map("n", "<F5>", "<cmd> DapStepInto <cr>", { desc = "Debugger Step Into" })
+-- map("n", "<leader>do", "<cmd> DapStepOut <cr>", { desc = "Debugger Step Out" })
+-- map("n", "<F7>", "<cmd> DapStepOut <cr>", { desc = "Debugger Step Out" })
 
 -- line manipulations
 map("v", "<A-Up>", ":m '<-2<CR>gv=gv", { desc = "Move Up", silent = true })

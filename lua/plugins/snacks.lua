@@ -2,19 +2,38 @@ return {
 	"folke/snacks.nvim",
 	priority = 1000,
 	lazy = false,
-    test = "",
-    opts = {
+	test = "",
+	opts = {
 		explorer = {
 			enabled = true,
 			replace_netrw = true,
 		},
 		picker = {
+			formatters = { file = { truncate = 1000 } },
 			enabled = true,
-            sources = {
-                git_files = {
-                    untracked = true,
-                }
-            }
+			sources = {
+				git_files = {
+					untracked = true,
+				},
+				smart = {
+					multi = { "recent", "files" },
+					finder = { "files" },
+					-- min_chars = 3,
+				},
+				explorer = {
+					hidden = true,
+					ignored = false,
+					include = {
+						"**/ThirdParty",
+						"**/thirdparty",
+						"**/Build",
+						"**/build",
+					},
+					exclude = {
+						"**/__pycache__",
+					},
+				},
+			},
 		},
 		statuscolumn = {
 			enabled = true,

@@ -11,8 +11,8 @@ return {
 	{
 		"mason-org/mason-lspconfig.nvim",
 		dependencies = {
-			"nvim/nvim-lspconfig",
 			"mason-org/mason.nvim",
+			"neovim/nvim-lspconfig",
 		},
 		opts = {
 			ensure_installed = {
@@ -21,21 +21,9 @@ return {
 				"html",
 				"cssls",
 				"tailwindcss",
+				"rust_analyzer",
 			},
 		},
-	},
-	{
-		"neovim/nvim-lspconfig",
-		config = function()
-			vim.lsp.config("clangd", {
-				"clangd",
-				"--header-insertion=never",
-				"--clang-tidy",
-			})
-
-			vim.lsp.enable("clangd")
-			require("lsp.odoo_ls")
-		end,
 	},
 	{
 		"mason-org/mason.nvim",

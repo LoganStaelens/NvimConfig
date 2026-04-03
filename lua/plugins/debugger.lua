@@ -1,43 +1,66 @@
 return {
+	-- {
+	-- 	"rcarriga/nvim-dap-ui",
+	-- 	event = "VeryLazy",
+	-- 	dependencies = "mfussenegger/nvim-dap",
+	-- 	config = function()
+	-- 		local dap = require("dap")
+	-- 		local dapui = require("dapui")
+	-- 		dapui.setup({
+	-- 			layouts = {
+	-- 				-- Left panel: Scopes, Breakpoints, Stacks, Watches
+	-- 				{
+	-- 					elements = {
+	-- 						{ id = "scopes", size = 0.4 },
+	-- 						{ id = "stacks", size = 0.4 },
+	--                            { id = "breakpoints", size = 0.2 },
+	-- 					},
+	-- 					size = 40, -- width in columns
+	-- 					position = "left",
+	-- 				},
+	-- 				-- Bottom panel: REPL and Console output
+	-- 				{
+	-- 					elements = {
+	-- 						{ id = "repl", size = 1.0 },
+	-- 					},
+	-- 					size = 10, -- height in lines
+	-- 					position = "bottom",
+	-- 				},
+	-- 			},
+	-- 		})
+	-- 		dap.listeners.after.event_initialized["dapui_config"] = function()
+	-- 			dapui.open()
+	-- 		end
+	-- 		dap.listeners.before.event_terminated["dapui_config"] = function()
+	-- 			dapui.close()
+	-- 		end
+	-- 		dap.listeners.before.event_exited["dapui_config"] = function()
+	-- 			dapui.close()
+	-- 		end
+	-- 	end,
+	-- },
 	{
-		"rcarriga/nvim-dap-ui",
-		event = "VeryLazy",
-		dependencies = "mfussenegger/nvim-dap",
-		config = function()
-			local dap = require("dap")
-			local dapui = require("dapui")
-			dapui.setup({
-				layouts = {
-					-- Left panel: Scopes, Breakpoints, Stacks, Watches
-					{
-						elements = {
-							{ id = "scopes", size = 0.4 },
-							{ id = "stacks", size = 0.4 },
-                            { id = "breakpoints", size = 0.2 },
-						},
-						size = 40, -- width in columns
-						position = "left",
-					},
-					-- Bottom panel: REPL and Console output
-					{
-						elements = {
-							{ id = "repl", size = 1.0 },
-						},
-						size = 10, -- height in lines
-						position = "bottom",
-					},
+		"igorlfs/nvim-dap-view",
+		lazy = false,
+		version = "1.*",
+		opts = {
+			winbar = {
+                default_section = "console",
+				sections = {
+					"console",
+					"watches",
+					"scopes",
+					"exceptions",
+					"breakpoints",
+					"threads",
+					"repl",
 				},
-			})
-			dap.listeners.after.event_initialized["dapui_config"] = function()
-				dapui.open()
-			end
-			dap.listeners.before.event_terminated["dapui_config"] = function()
-				dapui.close()
-			end
-			dap.listeners.before.event_exited["dapui_config"] = function()
-				dapui.close()
-			end
-		end,
+				controls = {
+					enabled = true,
+					position = "left",
+				},
+			},
+		},
 	},
 	{
 		"jay-babu/mason-nvim-dap.nvim",
@@ -86,9 +109,6 @@ return {
 			}
 
 			dap.adapters.python = {
-				-- type = "executable",
-				-- command = "python",
-				-- args = { "-m", "debugpy" },
 				type = "server",
 				host = "127.0.0.1",
 				port = 5678,

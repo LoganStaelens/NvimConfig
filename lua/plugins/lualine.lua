@@ -1,3 +1,22 @@
+local disabled_filetypes = {
+	"snacks_picker_list",
+	"snacks_picker_input",
+	"snacks_picker_preview",
+	"snacks_picker_layout",
+	"snacks_layout_box",
+    "dap-view",
+    "dap-repl",
+}
+
+local function has_value (tab, val)
+    for index, value in ipairs(tab) do
+        if value == val then
+            return true
+        end
+    end
+    return false
+end
+
 return {
 	"nvim-lualine/lualine.nvim",
 	dependencies = {
@@ -5,6 +24,10 @@ return {
 	},
 	opts = {
 		options = {
+			disabled_filetypes = {
+				winbar = disabled_filetypes,
+			},
+			globalstatus = true,
 			component_separators = { left = "", right = " " },
 			section_separators = { left = "", right = "" },
 		},
@@ -20,7 +43,15 @@ return {
 					"diff",
 				},
 			}, --TODO: lost
-			lualine_c = {},
+			lualine_c = {
+				{
+					"filename",
+					path = 1,
+                    cond = function ()
+                        return not has_value(disabled_filetypes, vim.bo.filetype)
+                    end
+				},
+			},
 			lualine_x = {
 				"lsp_status",
 			},
@@ -52,10 +83,10 @@ return {
 		},
 		inactive_winbar = {
 			lualine_a = {},
-			lualine_b = {},
-			lualine_c = {
+			lualine_b = {
 				"filename",
 			},
+			lualine_c = {},
 		},
 	},
 }

@@ -9,9 +9,9 @@ for _, location in ipairs(odoo_ls_locations) do
 	if vim.fn.executable(location) == 1 then
 		executable = location
 	end
-end 
+end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
+vim.notify(executable)
 
 vim.lsp.config("odoo_ls", {
 	cmd = {
@@ -22,7 +22,6 @@ vim.lsp.config("odoo_ls", {
 		uri = vim.uri_from_fname(vim.fn.getcwd()),
 		name = "main_folder",
 	} },
-    capabilities = capabilities,
 	settings = {
 		Odoo = {
 			selectedProfile = "main",

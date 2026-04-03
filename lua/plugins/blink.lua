@@ -3,7 +3,11 @@ return {
 	dependencies = { "rafamadriz/friendly-snippets" },
 	version = "1.*",
 	opts = {
-		keymap = { preset = "enter" },
+		keymap = {
+			preset = "enter",
+			["<Up>"] = { "select_prev", "fallback" },
+			["<Down>"] = { "select_next", "fallback" },
+		},
 		appearance = {
 			nerd_font_variant = "mono",
 		},
@@ -15,13 +19,13 @@ return {
 					auto_insert = false,
 				},
 			},
-            ghost_text = {
-                enabled = true,
-                show_with_menu = false,
-            },
-            menu={
-                auto_show = false,
-            }
+			ghost_text = {
+				enabled = false,
+				show_with_menu = false,
+			},
+			menu = {
+				auto_show = false,
+			},
 		},
 		sources = {
 			default = { "lazydev", "lsp", "path", "snippets", "buffer" },
